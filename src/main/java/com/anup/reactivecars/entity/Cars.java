@@ -1,4 +1,4 @@
-package com.anup.reactivecars.model;
+package com.anup.reactivecars.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
