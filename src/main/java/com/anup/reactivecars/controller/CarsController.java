@@ -9,14 +9,15 @@ import reactor.core.publisher.Mono;
 
 /**
  * URL Endpoints:
- * GET - http://localhost:8080/cars
- * POST - http://localhost:8080/cars
- * PUT - http://localhost:8080/cars/2
- * DELETE - http://localhost:8080/cars/3
+ * GET - http://localhost:8080/cars-api/getAllCars
+ * POST - http://localhost:8080/cars-api/getAllCars
+ * PUT - http://localhost:8080/cars-api/getCar/2
+ * PUT - http://localhost:8080/cars-api/updateCar/2
+ * DELETE - http://localhost:8080/cars-api/deleteCar/3
  */
 
 @RestController
-@RequestMapping("/cars")
+@RequestMapping("/cars-api")
 public class CarsController {
 
     @Autowired
@@ -28,19 +29,19 @@ public class CarsController {
         return carsRepository.findAll();
     }//use Flux when you return multiple data elements
 
-    @GetMapping("/{id}")
+    @GetMapping("/getCar/{id}")
     public Mono getCar(@PathVariable Integer id) {
         System.out.println("getting a single car with "+id+" for the producer..");
         return carsRepository.findById(id);
     }
 
-    @PostMapping
+    @PostMapping("/addCar")
     public Mono<Cars> createCar(@RequestBody Cars car) {
         System.out.println("Creating a new car inside the producer..");
         return carsRepository.save(car);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/updateCar/{id}")
     public Mono<Cars> updateCar(@RequestBody Cars car, @PathVariable Integer id) {
         System.out.println("finding a car with "+id+" inside the producer..");
         return carsRepository.findById(id) //get the existing element from the DB using the id
@@ -51,7 +52,7 @@ public class CarsController {
     }
     
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteCar/{id}")
     public Mono<Void> deleteCar(@PathVariable Integer id) {
         System.out.println("deleting a car with "+id+" inside the producer..");
         return carsRepository.deleteById(id);

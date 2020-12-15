@@ -10,8 +10,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "employee_details")
-@SecondaryTable(name = "employee_education_details", pkJoinColumns = @PrimaryKeyJoinColumn(name = "emp_id"))
+@Table(name = "employee")
+//@SecondaryTable(name = "employee_education_details", pkJoinColumns = @PrimaryKeyJoinColumn(name = "emp_id"))
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,15 +27,14 @@ public class Employee {
     @Column(name = "emp_city")
     String empCity;
 
-    @Column(name = "emp_phone_number")
-    String empPhoneNumber;
+    @Column(name = "emp_gender")
+    String empGender;
 
-    /*@Embedded
-    Education education;
+    @Column(name = "emp_dept")
+    String empDept;
 
-    public void setEducation(Education education) {
-        this.education = education;
-    }*/
-
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "emp_id", nullable = false)
+    private Company company;
 
 }
